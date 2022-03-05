@@ -12,7 +12,7 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(fetchAllPlayers());
-  }, []);
+  }, [dispatch]);
   return (
     <div>
       <h1>ALL PLAYERS</h1>

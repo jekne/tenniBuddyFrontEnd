@@ -30,6 +30,12 @@ const displayPlayers = (data) => {
     payload: data,
   };
 };
+const displayLevels = (data) => {
+  return {
+    type: "USER/displayLevels",
+    payload: data,
+  };
+};
 export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (name, email, password) => {
@@ -129,6 +135,18 @@ export function fetchAllPlayers() {
       // console.log("it is the same name 1", its_The_Same_name_1);
       // i went more deep and give the getAllSpaces, to have just an array otherwise could use just data
       dispatch(displayPlayers(users));
+    } catch (e) {}
+  };
+}
+export function fetchAllLevels() {
+  return async function thunk(dispatch, getState) {
+    try {
+      //   dispatch();
+      const response = await axios.get(`${apiUrl}/levels`);
+
+      const levels = response.data;
+
+      dispatch(displayLevels(levels));
     } catch (e) {}
   };
 }
