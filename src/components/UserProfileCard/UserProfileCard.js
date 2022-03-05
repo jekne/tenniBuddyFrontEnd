@@ -1,6 +1,6 @@
 import { Card, Button } from "react-bootstrap";
 
-export default function ClubCards(props) {
+export default function UserProfileCard(props) {
   return (
     <div>
       <Card style={{ width: "18rem" }}>
@@ -8,17 +8,17 @@ export default function ClubCards(props) {
         <Card.Body>
           <Card.Title>{props.name}</Card.Title>
           <Card.Text>
-            <strong>Adress: </strong>
-            {props.adress}
+            <strong>Age: </strong>
+            {props.age}
           </Card.Text>
           <Card.Text>
-            <strong> Zip Code: </strong>
-            {props.zipCode}
+            <strong> Gender: </strong>
+            {props.gender}
           </Card.Text>
           <Card.Text>
             {" "}
-            <strong>STARS: </strong>
-            {props.rateClub}
+            <strong>Location: </strong>
+            {props.location}
           </Card.Text>
           <Card.Text>
             {" "}
@@ -30,12 +30,12 @@ export default function ClubCards(props) {
             <strong>Email: </strong>
             {props.email}
           </Card.Text>
-          <Button
-            variant="primary"
-            onClick={(event) => (window.location.href = `${props.webSite}`)}
-          >
-            WEBSITE
-          </Button>{" "}
+          <Card.Text>
+            {" "}
+            <strong>Level: </strong>
+            {props.levelId}
+          </Card.Text>
+          <Button variant="primary">Submit changes</Button>{" "}
         </Card.Body>
       </Card>
     </div>
