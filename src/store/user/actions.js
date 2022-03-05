@@ -24,6 +24,12 @@ const tokenStillValid = (userWithoutToken) => ({
   payload: userWithoutToken,
 });
 
+const displayPlayers = (data) => {
+  return {
+    type: "USER/displayPlayers",
+    payload: data,
+  };
+};
 export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (name, email, password) => {
@@ -109,3 +115,20 @@ export const getUserWithStoredToken = () => {
     }
   };
 };
+
+export function fetchAllPlayers() {
+  return async function thunk(dispatch, getState) {
+    try {
+      //   dispatch();
+      const response = await axios.get(`${apiUrl}/users`);
+      //   console.log("response from thunk", response.data);
+      const users = response.data;
+      //(ASK TO EXPLAIN WHY BECAME [] IF YOU REMOVE THE artworkAndBids FROM DATA )
+      //if is undefined get the first item like artworkAndBids but remmber to do the reducer as well
+      // const its_The_Same_name_1 = response.data.getAllSpaces;
+      // console.log("it is the same name 1", its_The_Same_name_1);
+      // i went more deep and give the getAllSpaces, to have just an array otherwise could use just data
+      dispatch(displayPlayers(users));
+    } catch (e) {}
+  };
+}

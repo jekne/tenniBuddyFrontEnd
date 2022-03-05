@@ -18,6 +18,10 @@ export default (state = initialState, action) => {
 
     case TOKEN_STILL_VALID:
       return { ...state, ...action.payload };
+    case "USER/displayPlayers": {
+      console.log("USER/displayPlayers from the reducer", action.payload);
+      return { ...state, ...action.payload };
+    }
 
     default:
       return state;
