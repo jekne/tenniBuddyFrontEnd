@@ -26,6 +26,28 @@ export default (state = initialState, action) => {
       console.log("USER/displayLevels from the reducer", action.payload);
       return { ...state, ...action.payload };
     }
+    case "USERS/userToUpdate": {
+      console.log("action payload USERS/userToUpdate", action.payload);
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+    case "USER/displayMatches": {
+      // console.log("USER/displayMatches from the reducer", action.payload);
+
+      return {
+        ...state,
+        match: action.payload.userById,
+      };
+    }
+    case "USER/displayLevelLocation": {
+      console.log("USER/displayLevelLocation from the reducer", action.payload);
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
 
     default:
       return state;

@@ -11,7 +11,10 @@ export default function DisplayHomePageCard(props) {
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroupItem>Level: {props.levelId}</ListGroupItem>
-          <ListGroupItem>Favorite Location: {props.location}</ListGroupItem>
+          <ListGroupItem>
+            Favorite Location:
+            {props.location}
+          </ListGroupItem>
           <ListGroupItem>I like to play around: </ListGroupItem>
         </ListGroup>
         <Card.Body>

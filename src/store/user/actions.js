@@ -36,6 +36,21 @@ const displayLevels = (data) => {
     payload: data,
   };
 };
+
+const displayMatches = (data) => {
+  return {
+    type: "USER/displayMatches",
+    payload: data,
+  };
+};
+
+// const displayLevelLocation = (data) => {
+//   return {
+//     type: "USER/displayLevelLocation",
+//     payload: data,
+//   };
+// };
+
 export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (name, email, password) => {
@@ -122,6 +137,7 @@ export const getUserWithStoredToken = () => {
   };
 };
 
+//FETCH ALL THE PLAYERS
 export function fetchAllPlayers() {
   return async function thunk(dispatch, getState) {
     try {
@@ -150,3 +166,97 @@ export function fetchAllLevels() {
     } catch (e) {}
   };
 }
+
+//UPDATE THE USERS
+export function userToUpdate(data) {
+  return {
+    type: "USERS/userToUpdate",
+    payload: data,
+  };
+}
+
+export function usersWillBeUpdate({
+  name,
+  age,
+  description,
+  email,
+  gender,
+  imageUrl,
+  levelId,
+
+  telephone,
+  password,
+}) {
+  return async function thunk(dispatch, getState) {
+    try {
+      const { user } = getState();
+      const id = user.id;
+      const token = localStorage.getItem("token");
+      // console.log(
+      //   `THIS IS MY USER GETSTATE ${user}, and my id from thunk ${id}`
+      // );
+      console.log("name age dessciption", name, age, description);
+      const response = await axios.put(
+        `${apiUrl}/users/update/${id}`,
+        {
+          name,
+          age,
+          description,
+          email,
+          gender,
+          imageUrl,
+          levelId,
+
+          telephone,
+          password,
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      // console.log("response from thunk", response.data);
+      console.log("Am I getting here?", response);
+      // console.log("My token", token);
+
+      dispatch(userToUpdate(response.data));
+      window.location.reload();
+    } catch (e) {}
+  };
+}
+
+//FETCH THE MATCHE BY ID
+export function fetchMatchById() {
+  return async function thunk(dispatch, getState) {
+    try {
+      const { user } = getState();
+      // console.log("i am here?", user);
+      const userId = user.id;
+      //   dispatch();
+      const response = await axios.get(`${apiUrl}/users/${userId}`);
+      // console.log("response from thunk", response.data);
+      const matches = response.data;
+
+      dispatch(displayMatches(matches));
+    } catch (e) {}
+  };
+}
+
+//TEST WITH TWO ENDPOINTS LOCATION AND LEVEL
+// export function fetchLocationLevel() {
+//   return async function thunk(dispatch, getState) {
+//     console.log("I am getting here!!!!");
+//     // dispatch(startLoadingPost());
+
+//     const [levelResponse, locationResponse] = await Promise.all([
+//       axios.get(`${apiUrl}/users`),
+//       axios.get(`${apiUrl}/users/location`),
+//     ]);
+
+//     dispatch(
+//       displayLevelLocation({
+//         level: levelResponse.data,
+//         location: locationResponse.data.usersLocation,
+//       })
+//     );
+//   };
+// }

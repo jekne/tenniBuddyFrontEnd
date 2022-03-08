@@ -6,3 +6,7 @@
 .card-img-top {
   width: 50%;
 } */
+.homePageCard {
+  display: table;
+  background-image: url("https://media.istockphoto.com/photos/empty-clay-tennis-court-picture-id821815472?k=20&m=821815472&s=170667a&w=0&h=byVe8B4moKXJkU9J7vbBT0GdLrayvkPCo7X2vPNFAz4=");
+}

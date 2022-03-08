@@ -8,7 +8,7 @@ export default function HomePage() {
   const dispatch = useDispatch();
 
   const players = useSelector(selectAllUsers);
-  console.log("players", players);
+  // console.log("players", players);
 
   useEffect(() => {
     dispatch(fetchAllPlayers());
@@ -16,7 +16,7 @@ export default function HomePage() {
   return (
     <div>
       <h1>ALL PLAYERS</h1>
-      <div>
+      <div className="homePageCard">
         {!players
           ? "Loading..."
           : players.map((x) => {
@@ -24,9 +24,9 @@ export default function HomePage() {
                 <DisplayHomePageCard
                   key={x.id}
                   name={x.name}
-                  levelId={x.levelId}
+                  levelId={x.level.levelRateFixed}
                   imageUrl={x.imageUrl}
-                  location={x.location}
+                  location={x.location.city}
                 />
               );
             })}
