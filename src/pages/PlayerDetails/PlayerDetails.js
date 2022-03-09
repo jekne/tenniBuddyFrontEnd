@@ -30,15 +30,15 @@ export default function PlayerDetails() {
             <CardBody>
               <CardTitle tag="h5">{details.name} BUDDY</CardTitle>
               <CardSubtitle className="mb-2 text-muted" tag="h6">
-                {/* Level: {details.level.levelRateFixed}{" "} */}
+                Level: {details.level?.levelRateFixed}{" "}
               </CardSubtitle>{" "}
               <CardSubtitle className="mb-2 text-muted" tag="h6">
-                {/* Description: {details.level.description} */}
+                Description: {details.level?.description}
               </CardSubtitle>
             </CardBody>
             <img alt="Card image cap" src={details.imageUrl} width="50%" />
             <CardBody>
-              {/* <CardText>Favorite Location: {details.location.city}</CardText> */}
+              <CardText>Favorite Location: {details.location?.city}</CardText>
               <CardText>Moto: {details.description}</CardText>
               <CardText>Gender: {details.gender ? "Man" : "Woman"}</CardText>
               <CardText>Age: {details.age}</CardText>
@@ -52,3 +52,4 @@ export default function PlayerDetails() {
     </div>
   );
 }
+// location={matches.location?.city}

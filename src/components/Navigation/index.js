@@ -21,16 +21,16 @@ export default function Navigation() {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav style={{ width: "100%" }} fill>
-          <NavbarItem path="/" linkText="Home" />
+          <NavbarItem path="/" linkText="🎾 Home 🎾" />
           {!token ? (
             ""
           ) : (
             <>
-              <NavbarItem path="/clubs" linkText="Clubs" />
-              <NavbarItem path="/levels" linkText="Levels" />
+              <NavbarItem path="/clubs" linkText="🎾 Clubs 🎾" />
+              <NavbarItem path="/levels" linkText="🎾 Levels 🎾" />
 
-              <NavbarItem path="/matches" linkText="Matches" />
-              <NavbarItem path="/uprofile" linkText="Your Profile" />
+              <NavbarItem path="/matches" linkText="🎾 Matches 🎾" />
+              <NavbarItem path="/uprofile" linkText="🎾 Your Profile 🎾" />
             </>
           )}
           {loginLogoutControls}

@@ -58,7 +58,7 @@ export default (state = initialState, action) => {
       };
     }
     case "USER/displayWinner": {
-      console.log("USER/displayWinner from the reducer", action.payload);
+      // console.log("USER/displayWinner from the reducer", action.payload);
       return {
         ...state,
         ...action.payload,

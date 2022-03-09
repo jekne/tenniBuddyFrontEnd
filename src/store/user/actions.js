@@ -241,7 +241,7 @@ export function fetchMatchById() {
       const userId = user.id;
       //   dispatch();
       const response = await axios.get(`${apiUrl}/users/${userId}`);
-      // console.log("response from thunk", response.data);
+      console.log("response from thunk !!!!!!!", response.data);
       const matches = response.data;
 
       dispatch(displayMatches(matches));

@@ -9,6 +9,8 @@ import {
   selectUserMatches,
   selectUserVictories,
 } from "../../store/user/selectors";
+import { fetchAllMatches } from "../../store/matches/actions";
+import { selectAllMatches } from "../../store/matches/selector";
 
 export default function MatchesPlayed() {
   const dispatch = useDispatch();
@@ -18,14 +20,22 @@ export default function MatchesPlayed() {
   const id = user.id;
 
   const matches = useSelector(selectUserMatches);
-  // console.log("Matches", matches);
+  console.log("Matches", matches);
 
   const victories = useSelector(selectUserVictories);
-  console.log("victories", victories);
+  // console.log("victories", victories);
+  // console.log("victories", victories?.winnerId.length);
+
+  const playerMatch = useSelector(selectUser);
+  // console.log("PlayerMatch", playerMatch);
+
+  const allMatches = useSelector(selectAllMatches);
+  console.log("all matches", allMatches);
 
   useEffect(() => {
     dispatch(fetchMatchById(id));
     dispatch(fetchWinner(id));
+    dispatch(fetchAllMatches());
   }, [dispatch, id]);
 
   return (
@@ -37,7 +47,7 @@ export default function MatchesPlayed() {
         <MatchesCard
           imageUrl={matches.imageUrl}
           location={matches.location?.city}
-          winnerId={victories.winnerId.length}
+          // winnerId={victories.winnerId.length}
         />
       )}
     </div>
