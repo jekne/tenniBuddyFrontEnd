@@ -11,7 +11,7 @@ export default function MatchesCard(props) {
             <Card.Text>HERE WILL BE THE PLAYER 1</Card.Text>
           </Card.Body>
           <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted">Victories: {props.winnerId}</small>
           </Card.Footer>
         </Card>
         <Card>
@@ -21,7 +21,7 @@ export default function MatchesCard(props) {
             <Card.Text>HERE WILL BE THE PLAYER 2</Card.Text>
           </Card.Body>
           <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted">Victories: </small>
           </Card.Footer>
         </Card>
       </CardGroup>

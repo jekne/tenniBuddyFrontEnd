@@ -44,6 +44,13 @@ const displayMatches = (data) => {
   };
 };
 
+const displayWinner = (data) => {
+  return {
+    type: "USER/displayWinner",
+    payload: data,
+  };
+};
+
 // const displayLevelLocation = (data) => {
 //   return {
 //     type: "USER/displayLevelLocation",
@@ -142,9 +149,10 @@ export function fetchAllPlayers() {
   return async function thunk(dispatch, getState) {
     try {
       //   dispatch();
+      // console.log("i am geting here!!!");
       const response = await axios.get(`${apiUrl}/users`);
-      //   console.log("response from thunk", response.data);
-      const users = response.data;
+      // console.log("response from thunk", response);
+      const users = response.data.users;
       //(ASK TO EXPLAIN WHY BECAME [] IF YOU REMOVE THE artworkAndBids FROM DATA )
       //if is undefined get the first item like artworkAndBids but remmber to do the reducer as well
       // const its_The_Same_name_1 = response.data.getAllSpaces;
@@ -215,7 +223,7 @@ export function usersWillBeUpdate({
         }
       );
       // console.log("response from thunk", response.data);
-      console.log("Am I getting here?", response);
+      // console.log("Am I getting here?", response);
       // console.log("My token", token);
 
       dispatch(userToUpdate(response.data));
@@ -241,6 +249,23 @@ export function fetchMatchById() {
   };
 }
 
+//FETCH THE WINNER BY ID
+export function fetchWinner() {
+  return async function thunk(dispatch, getState) {
+    try {
+      const { user } = getState();
+      // console.log("i am here?", user);
+      const userId = user.id;
+      //   dispatch();
+      const response = await axios.get(`${apiUrl}/matches/${userId}`);
+      // console.log("response from thunk", response.data);
+      const winner = response.data;
+
+      dispatch(displayWinner(winner));
+    } catch (e) {}
+  };
+}
+
 //TEST WITH TWO ENDPOINTS LOCATION AND LEVEL
 // export function fetchLocationLevel() {
 //   return async function thunk(dispatch, getState) {
@@ -260,3 +285,22 @@ export function fetchMatchById() {
 //     );
 //   };
 // }
+export function playerById(id) {
+  return {
+    type: "USER/playerById",
+    payload: id,
+  };
+}
+
+export function ShowPlayerByID(id) {
+  return async function thunk(dispatch, getState) {
+    try {
+      const response = await axios.get(`${apiUrl}/users/details/${id}`);
+      console.log("response from thunk", response.data);
+      //   console.log("Am I getting here?", response);
+      const showPlayer = response.data.users;
+      // i went more deep and give the getAllSpaces, to have just an array otherwise could use just data
+      dispatch(playerById(showPlayer));
+    } catch (e) {}
+  };
+}

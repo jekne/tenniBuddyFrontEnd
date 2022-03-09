@@ -1,6 +1,11 @@
 import { Card, ListGroupItem, ListGroup, Button } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { selectToken } from "../../store/user/selectors";
 
 export default function DisplayHomePageCard(props) {
+  const token = useSelector(selectToken);
+
   return (
     <div>
       <Card style={{ width: "18rem" }}>
@@ -17,16 +22,23 @@ export default function DisplayHomePageCard(props) {
           </ListGroupItem>
           <ListGroupItem>I like to play around: </ListGroupItem>
         </ListGroup>
-        <Card.Body>
-          <Card.Link href="#">Card Link</Card.Link>
-          <Card.Link href="#">Another Link</Card.Link>
-        </Card.Body>
-        <Button
-          variant="primary"
-          onClick={(event) => (window.location.href = `${props.webSite}`)}
-        >
-          WEBSITE
-        </Button>{" "}
+
+        {!token ? (
+          <Link to={`/login`}>
+            {" "}
+            <Button>LOG IN</Button>{" "}
+          </Link>
+        ) : (
+          <Link to={`/details/${props.id}`}>
+            {" "}
+            <Button
+            // variant="primary"
+            // onClick={(event) => (window.location.href = `${props.webSite}`)}
+            >
+              CONNECT TO THE PLAYER
+            </Button>{" "}
+          </Link>
+        )}
       </Card>
     </div>
   );

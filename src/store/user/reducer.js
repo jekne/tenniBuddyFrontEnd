@@ -4,6 +4,8 @@ const initialState = {
   token: localStorage.getItem("token"),
   name: null,
   email: null,
+  players: [],
+  playerById: {},
 };
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
@@ -20,14 +22,14 @@ export default (state = initialState, action) => {
       return { ...state, ...action.payload };
     case "USER/displayPlayers": {
       // console.log("USER/displayPlayers from the reducer", action.payload);
-      return { ...state, ...action.payload };
+      return { ...state, players: [...action.payload] };
     }
     case "USER/displayLevels": {
-      console.log("USER/displayLevels from the reducer", action.payload);
+      // console.log("USER/displayLevels from the reducer", action.payload);
       return { ...state, ...action.payload };
     }
     case "USERS/userToUpdate": {
-      console.log("action payload USERS/userToUpdate", action.payload);
+      // console.log("action payload USERS/userToUpdate", action.payload);
       return {
         ...state,
         ...action.payload,
@@ -42,7 +44,21 @@ export default (state = initialState, action) => {
       };
     }
     case "USER/displayLevelLocation": {
-      console.log("USER/displayLevelLocation from the reducer", action.payload);
+      // console.log("USER/displayLevelLocation from the reducer", action.payload);
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+    case "USER/playerById": {
+      // console.log("USER/playerByIdlLocation from the reducer", action.payload);
+      return {
+        ...state,
+        playerById: { ...action.payload },
+      };
+    }
+    case "USER/displayWinner": {
+      console.log("USER/displayWinner from the reducer", action.payload);
       return {
         ...state,
         ...action.payload,
