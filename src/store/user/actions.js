@@ -241,7 +241,7 @@ export function fetchMatchById() {
       const userId = user.id;
       //   dispatch();
       const response = await axios.get(`${apiUrl}/users/${userId}`);
-      console.log("response from thunk !!!!!!!", response.data);
+      // console.log("response from thunk !!!!!!!", response.data);
       const matches = response.data;
 
       dispatch(displayMatches(matches));
@@ -296,7 +296,7 @@ export function ShowPlayerByID(id) {
   return async function thunk(dispatch, getState) {
     try {
       const response = await axios.get(`${apiUrl}/users/details/${id}`);
-      console.log("response from thunk", response.data);
+      // console.log("response from thunk", response.data);
       //   console.log("Am I getting here?", response);
       const showPlayer = response.data.users;
       // i went more deep and give the getAllSpaces, to have just an array otherwise could use just data

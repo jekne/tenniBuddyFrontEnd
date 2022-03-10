@@ -9,39 +9,40 @@ import {
   selectUserMatches,
   selectUserVictories,
 } from "../../store/user/selectors";
-import { fetchAllMatches } from "../../store/matches/actions";
-import { selectAllMatches } from "../../store/matches/selector";
+import {
+  fetchAllMatches,
+  getMatcheId,
+  fetchPlayersWhoPlayed,
+} from "../../store/matches/actions";
+import {
+  selectAllMatches,
+  selectMatchesPlayed,
+} from "../../store/matches/selector";
 
 export default function MatchesPlayed() {
   const dispatch = useDispatch();
 
   const user = useSelector(selectUser);
-  // console.log("users ", user.id);
   const id = user.id;
 
-  const matches = useSelector(selectUserMatches);
-  console.log("Matches", matches);
+  const matchesPlayedByTheUser = useSelector(selectMatchesPlayed);
+  // console.log("matches Played By The User", matchesPlayedByTheUser);
 
-  const victories = useSelector(selectUserVictories);
-  // console.log("victories", victories);
-  // console.log("victories", victories?.winnerId.length);
+  const matchesPlayed = matchesPlayedByTheUser?.matchId;
 
-  const playerMatch = useSelector(selectUser);
-  // console.log("PlayerMatch", playerMatch);
-
-  const allMatches = useSelector(selectAllMatches);
-  console.log("all matches", allMatches);
+  console.log("what matches played", matchesPlayed);
 
   useEffect(() => {
-    dispatch(fetchMatchById(id));
-    dispatch(fetchWinner(id));
-    dispatch(fetchAllMatches());
-  }, [dispatch, id]);
+    dispatch(getMatcheId());
+    if (matchesPlayed) {
+      dispatch(fetchPlayersWhoPlayed(matchesPlayed));
+    }
+  }, [dispatch, id, matchesPlayed]);
 
   return (
     <div>
       <h1>MATCHES PLAYED</h1>
-      {!matches ? (
+      {/* {!matches ? (
         "Loading..."
       ) : (
         <MatchesCard
@@ -49,7 +50,7 @@ export default function MatchesPlayed() {
           location={matches.location?.city}
           // winnerId={victories.winnerId.length}
         />
-      )}
+      )} */}
     </div>
   );
 }

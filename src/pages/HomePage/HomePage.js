@@ -8,7 +8,7 @@ import { Input, Label } from "reactstrap";
 import { useState } from "react";
 
 function compareLevel(Level_A, Leve_B) {
-  return Leve_B.level.levelRateFixed - Level_A.level.levelRateFixed;
+  return Leve_B.level?.levelRateFixed - Level_A.level?.levelRateFixed;
 }
 
 function compareGender(Boolean_A, Boolean_B) {
@@ -21,27 +21,38 @@ export default function HomePage() {
   console.log("players", players);
 
   const [sortBy, set_sort_By] = useState("level");
+  const [sortedPlayers, setSortedPlayers] = useState([]);
 
-  const playersSorted = [...players].sort(
-    sortBy === "level" ? compareLevel : compareGender
-  );
+  const [selectedLevel, setSelectedLevel] = useState(null);
 
-  const [selectedLevel, setSelectedLevel] = useState(players[0]);
-
-  // const playersComparingLevel = players.sort(compareLevel);
-  // console.log("Players comparing Level", playersComparingLevel);
-
-  // const playersComparingGender = players.sort(compareGender);
-  // console.log("Players comparing GENDER", playersComparingGender);
+  console.log("Select level", selectedLevel);
 
   const changeSorting = (event) => {
     set_sort_By(event.target.value);
   };
+  useEffect(() => {
+    let playersSorted = [...players].sort(
+      sortBy === "level" ? compareLevel : compareGender
+    );
+    if (selectedLevel) {
+      playersSorted = playersSorted.filter((player) => {
+        return player.level?.levelRateFixed.includes(selectedLevel);
+      });
+    }
+    setSortedPlayers(playersSorted);
+  }, [sortBy, selectedLevel, players]);
 
   useEffect(() => {
     dispatch(fetchAllPlayers());
   }, [dispatch]);
 
+  // const sortByLevel = !selectedLevel
+  //   ? players
+  //   : players.filter((player) => {
+  //       return player.level?.levelRateFixed.includes(selectedLevel);
+  //     });
+  // console.log("what it is sort by level", sortByLevel);
+  // const sorting = sortByLevel && playersSorted;
   return (
     <div>
       <div>
@@ -58,8 +69,8 @@ export default function HomePage() {
             }}
           >
             {players.map((lev) => (
-              <option key={lev.id} value={lev.id}>
-                {lev.level.levelRateFixed}
+              <option key={lev.id} value={lev.level?.levelRateFixed}>
+                {lev.level?.levelRateFixed}
               </option>
             ))}
           </Input>
@@ -72,16 +83,16 @@ export default function HomePage() {
           </Input>
         </div>
       </div>
-      {!playersSorted
+      {!sortedPlayers
         ? "Loading.."
-        : playersSorted.map((x) => {
+        : sortedPlayers.map((x) => {
             return (
               <DisplayHomePageCard
                 key={x.id}
                 name={x.name}
-                levelId={x.level.levelRateFixed}
+                levelId={x.level?.levelRateFixed}
                 imageUrl={x.imageUrl}
-                location={x.location.city}
+                location={x.location?.city}
                 id={x.id}
               />
             );
