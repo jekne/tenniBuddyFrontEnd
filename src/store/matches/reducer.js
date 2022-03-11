@@ -2,6 +2,8 @@
 const initialState = {
   matches: [],
   matchesPlayed: [],
+  matchesPlayedPicture: [],
+  sets: [],
 };
 
 export default function reducer(state = initialState, action) {
@@ -23,13 +25,21 @@ export default function reducer(state = initialState, action) {
     }
 
     case "MATCHES/getPlayersTroughMatchId":
-      console.log(
-        "MATCHES/getPlayersTroughMatchId from the reducer",
-        action.payload
-      );
+      // console.log(
+      //   "MATCHES/getPlayersTroughMatchId from the reducer",
+      //   action.payload
+      // );
       return {
         ...state,
+        matchesPlayedPicture: action.payload,
       };
+    case "MATCHES/getSetsMatchId": {
+      console.log("MATCHES/getSetsMatchId from the reducer", action.payload);
+      return {
+        ...state,
+        sets: action.payload,
+      };
+    }
     default: {
       return state;
     }

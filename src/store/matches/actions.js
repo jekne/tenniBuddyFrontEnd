@@ -55,18 +55,39 @@ export function getPlayersTroughMatchId(data) {
   };
 }
 //FETCH THE USERS WHO PLAYED THAT MATCH
-export function fetchPlayersWhoPlayed(test) {
+export function fetchPlayersWhoPlayed(matchesPlayed) {
   return async function thunk(dispatch, getState) {
     try {
       // const { user } = getState();
       // // console.log("i am here?", user);
       // const userId = user.id;
       //   dispatch();
-      const response = await axios.get(`${apiUrl}/usermatches/${test}`);
+      const response = await axios.get(
+        `${apiUrl}/usermatches/${matchesPlayed}`
+      );
       // console.log("response from thunk !!!!!!!", response.data);
       const playersWithPicture = response.data;
 
       dispatch(getPlayersTroughMatchId(playersWithPicture));
+    } catch (e) {}
+  };
+}
+
+export function getSetsMatchId(data) {
+  return {
+    type: "MATCHES/getSetsMatchId",
+    payload: data,
+  };
+}
+//FETCH THE SETS IN THE SPCIFIC MATCH
+export function fetchSets(matchesPlayed) {
+  return async function thunk(dispatch, getState) {
+    try {
+      const response = await axios.get(`${apiUrl}/sets/${matchesPlayed}`);
+      console.log("response from thunk !!!!!!!", response.data.SetByMatchId);
+      const sets = response.data;
+
+      dispatch(getSetsMatchId(sets));
     } catch (e) {}
   };
 }
