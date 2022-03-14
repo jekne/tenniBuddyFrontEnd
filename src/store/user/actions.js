@@ -51,6 +51,12 @@ const displayWinner = (data) => {
   };
 };
 
+export function playerById(id) {
+  return {
+    type: "USER/playerById",
+    payload: id,
+  };
+}
 export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (
@@ -155,24 +161,19 @@ export const getUserWithStoredToken = () => {
 export function fetchAllPlayers() {
   return async function thunk(dispatch, getState) {
     try {
-      //   dispatch();
-      // console.log("i am geting here!!!");
       const response = await axios.get(`${apiUrl}/users`);
-      // console.log("response from thunk", response);
+
       const users = response.data.users;
-      //(ASK TO EXPLAIN WHY BECAME [] IF YOU REMOVE THE artworkAndBids FROM DATA )
-      //if is undefined get the first item like artworkAndBids but remmber to do the reducer as well
-      // const its_The_Same_name_1 = response.data.getAllSpaces;
-      // console.log("it is the same name 1", its_The_Same_name_1);
-      // i went more deep and give the getAllSpaces, to have just an array otherwise could use just data
+
       dispatch(displayPlayers(users));
     } catch (e) {}
   };
 }
+
+//FETCH ALL LEVELS
 export function fetchAllLevels() {
   return async function thunk(dispatch, getState) {
     try {
-      //   dispatch();
       const response = await axios.get(`${apiUrl}/levels`);
 
       const levels = response.data;
@@ -198,7 +199,7 @@ export function usersWillBeUpdate({
   gender,
   imageUrl,
   levelId,
-
+  location,
   telephone,
   password,
 }) {
@@ -207,9 +208,7 @@ export function usersWillBeUpdate({
       const { user } = getState();
       const id = user.id;
       const token = localStorage.getItem("token");
-      // console.log(
-      //   `THIS IS MY USER GETSTATE ${user}, and my id from thunk ${id}`
-      // );
+
       console.log("name age dessciption", name, age, description);
       const response = await axios.put(
         `${apiUrl}/users/update/${id}`,
@@ -221,7 +220,7 @@ export function usersWillBeUpdate({
           gender,
           imageUrl,
           levelId,
-
+          location,
           telephone,
           password,
         },
@@ -229,9 +228,6 @@ export function usersWillBeUpdate({
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // console.log("response from thunk", response.data);
-      // console.log("Am I getting here?", response);
-      // console.log("My token", token);
 
       dispatch(userToUpdate(response.data));
       window.location.reload();
@@ -244,11 +240,11 @@ export function fetchMatchById() {
   return async function thunk(dispatch, getState) {
     try {
       const { user } = getState();
-      // console.log("i am here?", user);
+
       const userId = user.id;
-      //   dispatch();
+
       const response = await axios.get(`${apiUrl}/users/${userId}`);
-      // console.log("response from thunk !!!!!!!", response.data);
+
       const matches = response.data;
 
       dispatch(displayMatches(matches));
@@ -261,11 +257,10 @@ export function fetchWinner() {
   return async function thunk(dispatch, getState) {
     try {
       const { user } = getState();
-      // console.log("i am here?", user);
       const userId = user.id;
-      //   dispatch();
+
       const response = await axios.get(`${apiUrl}/matches/${userId}`);
-      // console.log("response from thunk", response.data);
+
       const winner = response.data;
 
       dispatch(displayWinner(winner));
@@ -273,40 +268,13 @@ export function fetchWinner() {
   };
 }
 
-//TEST WITH TWO ENDPOINTS LOCATION AND LEVEL
-// export function fetchLocationLevel() {
-//   return async function thunk(dispatch, getState) {
-//     console.log("I am getting here!!!!");
-//     // dispatch(startLoadingPost());
-
-//     const [levelResponse, locationResponse] = await Promise.all([
-//       axios.get(`${apiUrl}/users`),
-//       axios.get(`${apiUrl}/users/location`),
-//     ]);
-
-//     dispatch(
-//       displayLevelLocation({
-//         level: levelResponse.data,
-//         location: locationResponse.data.usersLocation,
-//       })
-//     );
-//   };
-// }
-export function playerById(id) {
-  return {
-    type: "USER/playerById",
-    payload: id,
-  };
-}
-
 export function ShowPlayerByID(id) {
   return async function thunk(dispatch, getState) {
     try {
       const response = await axios.get(`${apiUrl}/users/details/${id}`);
-      // console.log("response from thunk", response.data);
-      //   console.log("Am I getting here?", response);
+
       const showPlayer = response.data.users;
-      // i went more deep and give the getAllSpaces, to have just an array otherwise could use just data
+
       dispatch(playerById(showPlayer));
     } catch (e) {}
   };

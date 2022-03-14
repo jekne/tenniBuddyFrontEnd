@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { usersWillBeUpdate } from "../../store/user/actions";
+import { usersWillBeUpdate, fetchAllPlayers } from "../../store/user/actions";
 import { Form, Row, Col, FormGroup, Button } from "react-bootstrap";
 import { Input, Label } from "reactstrap";
-import { selectToken, selectUser } from "../../store/user/selectors";
+import {
+  selectToken,
+  selectUser,
+  selectAllUsers,
+} from "../../store/user/selectors";
 
 export default function FormEditProfile() {
   const dispatch = useDispatch();
@@ -15,13 +19,14 @@ export default function FormEditProfile() {
   const [gender, set_Gender] = useState(false);
   const [imageUrl, set_ImageUrl] = useState("");
   const [levelId, set_LevelId] = useState("");
-  const [location, set_location] = useState("");
+  const [location, set_location] = useState(null);
   const [telephone, set_Telephone] = useState("");
 
+  const players = useSelector(selectAllUsers);
+  console.log("PLAYERS", players);
   const user = useSelector(selectUser);
-  // console.log("user", user);
+
   const token = useSelector(selectToken);
-  // console.log("token", token);
 
   const handleSubmit = () => {
     console.log("name age description", name, age, description);
@@ -34,7 +39,7 @@ export default function FormEditProfile() {
         gender,
         imageUrl,
         levelId,
-
+        location,
         telephone,
         password,
         token,
@@ -43,9 +48,12 @@ export default function FormEditProfile() {
     console.log("Ive been clicked");
   };
 
+  useEffect(() => {
+    dispatch(fetchAllPlayers());
+  }, []);
   return (
     <div>
-      <Form>
+      <Form className="test">
         <Row form>
           <FormGroup>
             <Label>
@@ -88,17 +96,29 @@ export default function FormEditProfile() {
         </Row>
 
         <Row form>
-          {/* <Col md={6}>
-            <FormGroup>
-              <Label>Location</Label>
-              <Input
-                type="text"
-                placeholder={user.location}
-                value={location}
-                onChange={(event) => set_location(event.target.value)}
-              />
-            </FormGroup>
-          </Col> */}
+          <FormGroup>
+            <Label>
+              {" "}
+              <strong>FAVORITE LOCATION </strong>
+            </Label>
+            <Input
+              id="exampleSelect"
+              name="select"
+              type="select"
+              value={location}
+              onChange={(e) => {
+                set_location(parseInt(e.target.value));
+              }}
+            >
+              <option> LOCATION</option>
+              {players.map((locati) => (
+                <option key={locati.id} value={locati.locationId}>
+                  {locati.location?.city}
+                </option>
+              ))}
+            </Input>
+          </FormGroup>
+
           <Col md={6}>
             <FormGroup>
               <Label>

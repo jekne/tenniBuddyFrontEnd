@@ -1,5 +1,6 @@
 import axios from "axios";
 import { apiUrl } from "../../config/constants";
+import { showMessageWithTimeout } from "../appState/actions";
 
 export function newStory(content) {
   return {
@@ -11,11 +12,6 @@ export function newStory(content) {
 export function createNewStory({ content, token, id }) {
   return async function thunk(dispatch, getState) {
     try {
-      // const { user } = getState();
-      // const userId = user.id;
-      // console.log(
-      //   `THIS IS MY USER GETSTATE ${user}, and my spaceId from thiunk ${userId}`
-      // );
       const response = await axios.post(
         `${apiUrl}/stories/${id}`,
         {
@@ -29,6 +25,10 @@ export function createNewStory({ content, token, id }) {
       console.log("response from thunk", response);
 
       dispatch(newStory(response.data));
+      dispatch(fetchStories(id, token));
+      dispatch(
+        showMessageWithTimeout("success", false, "Message sent to the BUDDY!")
+      );
     } catch (e) {}
   };
 }
@@ -43,10 +43,6 @@ export function showStories(data) {
 export function fetchStories(id, token) {
   return async function thunk(dispatch, getState) {
     try {
-      const { user } = getState();
-      // const userId = user.id;
-
-      // console.log("user id from the thunk", userId);
       const response = await axios.get(
         `${apiUrl}/stories/stories/${id}`,
 
@@ -54,10 +50,6 @@ export function fetchStories(id, token) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      //   console.log("My token", token);
-      //   console.log("response from thunk", response);
-      const story = response.data;
-      console.log("story from the thunk", story.stories);
 
       dispatch(showStories(response.data.stories));
     } catch (e) {}

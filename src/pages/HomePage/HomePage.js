@@ -19,13 +19,11 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const players = useSelector(selectAllUsers);
   const levels = useSelector(SelectAllLevels);
-  // console.log("players", players);
 
   const [sortBy, set_sort_By] = useState("level");
   const [sortedPlayers, setSortedPlayers] = useState([]);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [location, set_Location] = useState(null);
-  console.log("Select locatioon", location);
 
   const changeSorting = (event) => {
     set_sort_By(event.target.value);
@@ -58,7 +56,7 @@ export default function HomePage() {
       <div>
         {" "}
         <FormGroup>
-          <Label for="exampleSelect">Select Your Tennis Buddy By Level:</Label>
+          <Label for="exampleSelect">FIND YOUR TENNIS BUDDY</Label>
           <Input
             id="exampleSelect"
             name="select"
@@ -68,7 +66,7 @@ export default function HomePage() {
               setSelectedLevel(parseFloat(e.target.value));
             }}
           >
-            <option>Select level:</option>
+            <option>SELECT LEVEL</option>
             {levels?.map((lev) => (
               <option key={lev.id} value={lev.level?.levelRateFixed}>
                 {lev.levelRateFixed}
@@ -108,15 +106,16 @@ export default function HomePage() {
       )}
       {!sortedPlayers || sortedPlayers.length < 1
         ? "No playes with selected level"
-        : sortedPlayers.map((x) => {
+        : sortedPlayers.map((player) => {
             return (
               <DisplayHomePageCard
-                key={x.id}
-                name={x.name}
-                levelId={x.level?.levelRateFixed}
-                imageUrl={x.imageUrl}
-                location={x.location?.city}
-                id={x.id}
+                key={player.id}
+                name={player.name}
+                levelId={player.level?.levelRateFixed}
+                imageUrl={player.imageUrl}
+                location={player.location?.city}
+                description={player.description}
+                id={player.id}
               />
             );
           })}

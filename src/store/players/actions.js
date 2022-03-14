@@ -25,9 +25,9 @@ export function levelPlayerByID(id, levelId) {
         }
       );
       console.log("response from thunk", response.data);
-      //   console.log("Am I getting here?", response);
+
       const levelUpdate = response.data;
-      // i went more deep and give the getAllSpaces, to have just an array otherwise could use just data
+
       dispatch(levelPlayerById(levelUpdate));
 
       dispatch(

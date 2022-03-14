@@ -13,7 +13,7 @@ export default function DisplayHomePageCard(props) {
           <Card.Img variant="top" src={props.imageUrl} />
           <Card.Body>
             <Card.Title>BUDDY {props.name}</Card.Title>
-            <Card.Text>Hey lets Hit some Balls!.</Card.Text>
+            <Card.Text> {props.description}</Card.Text>
           </Card.Body>
           <ListGroup className="list-group-flush">
             <ListGroupItem>Level: {props.levelId}</ListGroupItem>
@@ -21,7 +21,6 @@ export default function DisplayHomePageCard(props) {
               Favorite Location:
               {props.location}
             </ListGroupItem>
-            <ListGroupItem>I like to play around: </ListGroupItem>
           </ListGroup>
 
           {!token ? (
@@ -32,12 +31,7 @@ export default function DisplayHomePageCard(props) {
           ) : (
             <Link to={`/details/${props.id}`}>
               {" "}
-              <Button
-              // variant="primary"
-              // onClick={(event) => (window.location.href = `${props.webSite}`)}
-              >
-                CONNECT TO THE PLAYER
-              </Button>{" "}
+              <Button>CONNECT TO THE PLAYER</Button>{" "}
             </Link>
           )}
         </Card>

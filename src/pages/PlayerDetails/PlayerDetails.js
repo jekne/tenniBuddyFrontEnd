@@ -5,46 +5,33 @@ import { useDispatch, useSelector } from "react-redux";
 import { ShowPlayerByID } from "../../store/user/actions";
 import { createNewStory } from "../../store/stories/actions";
 import { Form } from "react-bootstrap";
-import { CardBody, CardSubtitle, Card, CardTitle } from "reactstrap";
+import { CardBody, CardSubtitle, Card, CardTitle, Input } from "reactstrap";
 import { CardText } from "reactstrap";
 import { fetchStories } from "../../store/stories/actions";
 import { selectStoriesByPlayer } from "../../store/stories/selectors";
-import {
-  selectToken,
-  selectUser,
-  selectUsersById,
-} from "../../store/user/selectors";
+import { selectToken, selectUsersById } from "../../store/user/selectors";
 import { useState } from "react";
-import FormAddStory from "../../components/Forms/FormaAddStory";
 
 export default function PlayerDetails() {
-  const { id } = useParams();
-  console.log("this is my params", id);
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   const [content, set_Content] = useState("");
-
   const [formHidden, set_FormHidden] = useState(true);
 
   const token = useSelector(selectToken);
-
-  const playerWhoLeaveMessage = useSelector(selectUser);
-  console.log("player who leave the message", playerWhoLeaveMessage.id);
-  const playerGiveMessageid = playerWhoLeaveMessage.id;
 
   const details = useSelector(selectUsersById);
   // console.log("details", details);
 
   const stories = useSelector(selectStoriesByPlayer);
-  console.log("stories", stories);
+  // console.log("stories", stories);
 
-  const handleSubmmit = () => {
-    // event.preventDefault();
+  const handleSubmmit = (event) => {
+    event.preventDefault();
 
     dispatch(createNewStory({ content, token, id }));
-    // dispatch(
-    //   showMessageWithTimeout("success", false, "Story posted on your space!")
-    // );
+    set_Content("");
   };
 
   useEffect(() => {
@@ -55,14 +42,17 @@ export default function PlayerDetails() {
   }, [id]);
 
   return (
-    <div>
+    <div className="playerDetails">
       {!details ? (
         "Loading ..."
       ) : (
         <div>
-          <Card>
+          <Card style={{ width: "50rem" }} className="playerDetailsBigCard">
             <CardBody>
-              <CardTitle tag="h5">{details.name} BUDDY</CardTitle>
+              <CardTitle tag="h5">
+                {" "}
+                <strong>{details.name} BUDDY </strong>
+              </CardTitle>
               <CardSubtitle className="mb-2 text-muted" tag="h6">
                 Level: {details.level?.levelRateFixed}{" "}
               </CardSubtitle>{" "}
@@ -72,17 +62,38 @@ export default function PlayerDetails() {
             </CardBody>
             <img alt="Card image cap" src={details.imageUrl} width="50%" />
             <CardBody>
-              <CardText>Favorite Location: {details.location?.city}</CardText>
-              <CardText>Moto: {details.description}</CardText>
-              <CardText>Gender: {details.gender ? "Man" : "Woman"}</CardText>
-              <CardText>Age: {details.age}</CardText>
-              <CardText>Contact me : </CardText>
-              <CardText>Email: {details.email}</CardText>
-              <CardText>Telephone: {details.telephone}</CardText>
+              <CardText>
+                <strong>Favorite Location: {details.location?.city} </strong>
+              </CardText>
+              <CardText>
+                {" "}
+                <strong>Moto: {details.description} </strong>
+              </CardText>
+              <CardText>
+                {" "}
+                <strong>Gender: {details.gender ? "Man" : "Woman"} </strong>
+              </CardText>
+              <CardText>
+                {" "}
+                <strong>Age: {details.age} </strong>
+              </CardText>
+              <CardText>
+                {" "}
+                <strong>Contact me : </strong>
+              </CardText>
+              <CardText>
+                {" "}
+                <strong>Email: {details.email}</strong>
+              </CardText>
+              <CardText>
+                {" "}
+                <strong>Telephone: {details.telephone}</strong>
+              </CardText>
             </CardBody>
           </Card>
           <div>
             <button
+              className="btPlayerDetails"
               onClick={() => {
                 set_FormHidden(!formHidden);
               }}
@@ -93,24 +104,24 @@ export default function PlayerDetails() {
               {" "}
               {!formHidden ? (
                 <div>
-                  <div>
-                    <Form>
-                      <ul>
+                  <Form>
+                    <ul>
+                      {" "}
+                      <label>
+                        <strong>WRITE YOUR MESSAGE HERE</strong>
+                      </label>
+                      <Input
+                        value={content}
+                        onChange={(event) => set_Content(event.target.value)}
+                      />
+                      <div>
                         {" "}
-                        <label>Write here</label>
-                        <input
-                          value={content}
-                          onChange={(event) => set_Content(event.target.value)}
-                        />
-                        <div>
-                          {" "}
-                          <button onClick={handleSubmmit}>
-                            SAVE YOUR MESSAGE
-                          </button>
-                        </div>
-                      </ul>
-                    </Form>
-                  </div>
+                        <button onClick={handleSubmmit}>
+                          SAVE YOUR MESSAGE
+                        </button>
+                      </div>
+                    </ul>
+                  </Form>
                 </div>
               ) : (
                 ""
@@ -124,12 +135,17 @@ export default function PlayerDetails() {
           "Loading ..."
         ) : (
           <div>
-            {stories.map((story) => {
+            {stories?.map((story) => {
               return (
-                <h3 key={story.id} className="storiesPlayerDetails">
-                  {story.content}
-                  <img src={story.imageUrl} alt="Avatar"></img>
-                </h3>
+                <div key={story.id} className="storiesPlayerDetails">
+                  <h5>
+                    <h3>
+                      {story?.content}
+                      <img src={story?.imageUrl} alt="Avatar"></img>
+                    </h3>
+                    Message from: <b>{story.name}</b>
+                  </h5>
+                </div>
               );
             })}
           </div>

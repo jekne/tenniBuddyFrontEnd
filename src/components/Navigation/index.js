@@ -29,7 +29,7 @@ export default function Navigation() {
               <NavbarItem path="/clubs" linkText="🎾 Clubs 🎾" />
               <NavbarItem path="/levels" linkText="🎾 Levels 🎾" />
 
-              <NavbarItem path="/matches" linkText="🎾 Matches 🎾" />
+              {/* <NavbarItem path="/matches" linkText="🎾 Matches 🎾" /> */}
               <NavbarItem path="/uprofile" linkText="🎾 Your Profile 🎾" />
             </>
           )}

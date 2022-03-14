@@ -14,9 +14,6 @@ export default function UserProfile() {
   const playerById = useSelector(selectUsersById);
   console.log("player by id", playerById);
 
-  // const details = useSelector(selectUsersById);
-  // console.log("details", details);
-
   useEffect(() => {
     if (playerById) {
       dispatch(ShowPlayerByID(id));
@@ -24,7 +21,7 @@ export default function UserProfile() {
   }, [dispatch, id]);
   return (
     <div className="userProfileBackGround">
-      <h1 className=""> {user.name} BUDDY PROFILE</h1>
+      <h1 className="userProfileTitle"> {user.name} BUDDY PROFILE</h1>
       {!user ? (
         "Loading ... "
       ) : (
@@ -35,7 +32,9 @@ export default function UserProfile() {
             gender={playerById.gender ? "Man" : "Woman"}
             imageUrl={playerById.imageUrl}
             levelId={playerById.level?.levelRateFixed}
-            location={playerById.location?.city}
+            location={
+              playerById.location?.city ? null : "Amsterdam - City Center"
+            }
             name={playerById.name}
             telephone={playerById.telephone}
             age={playerById.age}

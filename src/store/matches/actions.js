@@ -8,43 +8,10 @@ export function clubsFullyFetched(data) {
   };
 }
 
-export function fetchAllMatches() {
-  return async function thunk(dispatch, getState) {
-    try {
-      //   dispatch();
-      const response = await axios.get(`${apiUrl}/usermatches/all`);
-      //   console.log("response from thunk", response.data);
-      const getMatches = response.data.AllMatches;
-
-      dispatch(clubsFullyFetched(getMatches));
-    } catch (e) {}
-  };
-}
-
 export function findMatchId(data) {
   return {
     type: "MATCHES/findMatchId",
     payload: data,
-  };
-}
-
-//GET THE MATCH ID FROM THE USERSMATCH
-export function getMatcheId() {
-  return async function thunk(dispatch, getState) {
-    try {
-      const { user } = getState();
-      const id = user.id;
-      // console.log("id from the thunk", id);
-      //   dispatch();
-      const response = await axios.get(`${apiUrl}/usermatches/new/${id}`);
-      // console.log(
-      //   "response from thunk",
-      //   response.data.findThematchesPlayed.matchId
-      // );
-      const theMatchId = response.data;
-
-      dispatch(findMatchId(theMatchId));
-    } catch (e) {}
   };
 }
 
@@ -54,24 +21,6 @@ export function getPlayersTroughMatchId(data) {
     payload: data,
   };
 }
-//FETCH THE USERS WHO PLAYED THAT MATCH
-export function fetchPlayersWhoPlayed(matchesPlayed) {
-  return async function thunk(dispatch, getState) {
-    try {
-      // const { user } = getState();
-      // // console.log("i am here?", user);
-      // const userId = user.id;
-      //   dispatch();
-      const response = await axios.get(
-        `${apiUrl}/usermatches/${matchesPlayed}`
-      );
-      // console.log("response from thunk !!!!!!!", response.data);
-      const playersWithPicture = response.data;
-
-      dispatch(getPlayersTroughMatchId(playersWithPicture));
-    } catch (e) {}
-  };
-}
 
 export function getSetsMatchId(data) {
   return {
@@ -79,6 +28,51 @@ export function getSetsMatchId(data) {
     payload: data,
   };
 }
+
+//FETCH ALL MATCHES
+export function fetchAllMatches() {
+  return async function thunk(dispatch, getState) {
+    try {
+      const response = await axios.get(`${apiUrl}/usermatches/all`);
+
+      const getMatches = response.data.AllMatches;
+
+      dispatch(clubsFullyFetched(getMatches));
+    } catch (e) {}
+  };
+}
+
+//GET THE MATCH ID FROM THE USERSMATCH
+export function getMatcheId() {
+  return async function thunk(dispatch, getState) {
+    try {
+      const { user } = getState();
+      const id = user.id;
+
+      const response = await axios.get(`${apiUrl}/usermatches/new/${id}`);
+
+      const theMatchId = response.data;
+
+      dispatch(findMatchId(theMatchId));
+    } catch (e) {}
+  };
+}
+
+//FETCH THE USERS WHO PLAYED THAT MATCH
+export function fetchPlayersWhoPlayed(matchesPlayed) {
+  return async function thunk(dispatch, getState) {
+    try {
+      const response = await axios.get(
+        `${apiUrl}/usermatches/${matchesPlayed}`
+      );
+
+      const playersWithPicture = response.data;
+
+      dispatch(getPlayersTroughMatchId(playersWithPicture));
+    } catch (e) {}
+  };
+}
+
 //FETCH THE SETS IN THE SPCIFIC MATCH
 export function fetchSets(matchesPlayed) {
   return async function thunk(dispatch, getState) {
