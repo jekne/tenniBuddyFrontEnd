@@ -1,5 +1,6 @@
 import { apiUrl } from "../../config/constants";
 import axios from "axios";
+import { showMessageWithTimeout } from "../appState/actions";
 
 export function levelPlayerById(id) {
   return {
@@ -28,6 +29,14 @@ export function levelPlayerByID(id, levelId) {
       const levelUpdate = response.data;
       // i went more deep and give the getAllSpaces, to have just an array otherwise could use just data
       dispatch(levelPlayerById(levelUpdate));
+
+      dispatch(
+        showMessageWithTimeout(
+          "success",
+          true,
+          "Your level was successfuly updated!!!"
+        )
+      );
     } catch (e) {}
   };
 }

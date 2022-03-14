@@ -42,34 +42,44 @@ export default function Levels() {
     // dispatch(levelPlayerByID(id));
   }, [dispatch]);
   return (
-    <div>
-      <h1> LEVEL UTR</h1>
-      {!levels ? (
-        "Loading..."
-      ) : (
-        <div>
-          {levels.map((x) => {
-            return (
-              <div key={x.id}>
-                <Card style={{ width: "30rem" }}>
-                  <h2> Level {x.levelRateFixed}</h2>
-                </Card>
-                <Card style={{ width: "30rem" }}>
-                  <Card style={{ width: "30rem" }}>
-                    <InputGroup.Checkbox
-                      aria-label="Checkbox for following text input"
-                      onChange={(event) => set_Check(x.id)}
-                    />
-                    <h5>{x.description}</h5>
-                  </Card>
-                </Card>
-              </div>
-            );
-          })}
+    <div className="backgroundLevel">
+      <div className="levelsAllPage">
+        <h1 className="levelUtr"> LEVEL UTR</h1>
+        {!levels ? (
+          "Loading..."
+        ) : (
+          <div>
+            {levels.map((x) => {
+              return (
+                <div key={x.id}>
+                  <Card className="levels" style={{ width: "30rem" }}>
+                    <Card style={{ width: "30rem" }}>
+                      <h2> Level {x.levelRateFixed}</h2>
+                    </Card>
+                    <Card style={{ width: "30rem" }}>
+                      <h5>{x.description}</h5>
+                    </Card>
 
-          <Button onClick={handleSubmit}> Submit Level</Button>
-        </div>
-      )}
+                    <Card style={{ width: "30rem" }}>
+                      <InputGroup.Checkbox
+                        style={{ width: " 2rem", height: "2rem" }}
+                        className="checkbox"
+                        aria-label="level"
+                        onChange={(event) => set_Check(x.id)}
+                      />
+                    </Card>
+                  </Card>
+                </div>
+              );
+            })}
+
+            <Button className="btlUtr" onClick={handleSubmit}>
+              {" "}
+              Submit Level
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

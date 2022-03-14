@@ -45,11 +45,12 @@ export default function FormEditProfile() {
 
   return (
     <div>
-      <h1>THE FORM TO BE EDIT</h1>
       <Form>
         <Row form>
           <FormGroup>
-            <Label>Name</Label>
+            <Label>
+              <strong>Name</strong>
+            </Label>
             <Input
               placeholder={user.name}
               value={name}
@@ -58,7 +59,10 @@ export default function FormEditProfile() {
           </FormGroup>
           <Col md={6}>
             <FormGroup>
-              <Label>Email</Label>
+              <Label>
+                {" "}
+                <strong>Email </strong>
+              </Label>
               <Input
                 type="email"
                 placeholder={user.email}
@@ -69,7 +73,10 @@ export default function FormEditProfile() {
           </Col>
           <Col md={6}>
             <FormGroup>
-              <Label>Password</Label>
+              <Label>
+                {" "}
+                <strong> Password </strong>
+              </Label>
               <Input
                 type="password"
                 placeholder={user.password}
@@ -94,7 +101,10 @@ export default function FormEditProfile() {
           </Col> */}
           <Col md={6}>
             <FormGroup>
-              <Label>Age</Label>
+              <Label>
+                {" "}
+                <strong>Age </strong>
+              </Label>
               <Input
                 type="number"
                 placeholder={user.age}
@@ -104,7 +114,10 @@ export default function FormEditProfile() {
             </FormGroup>
           </Col>
           <Col>
-            <legend>Gender</legend>
+            <legend>
+              {" "}
+              <strong>Gender </strong>
+            </legend>
             <FormGroup check>
               <Input
                 name="radio1"
@@ -128,7 +141,10 @@ export default function FormEditProfile() {
           </Col>
 
           <FormGroup row>
-            <Label sm={2}>Description</Label>
+            <Label sm={2}>
+              {" "}
+              <strong>Description </strong>
+            </Label>
             <Col sm={10}>
               <Input
                 type="textarea"
@@ -140,7 +156,9 @@ export default function FormEditProfile() {
           </FormGroup>
         </Row>
         <FormGroup>
-          <Label>Telephone Number</Label>
+          <Label>
+            <strong>Telephone Number</strong>
+          </Label>
           <Input
             type="text"
             placeholder="optional"
@@ -149,7 +167,10 @@ export default function FormEditProfile() {
           />
         </FormGroup>
         <FormGroup>
-          <label>IMAGEURL:</label>
+          <label>
+            {" "}
+            <strong>PICTURE PROFILE:</strong>
+          </label>
           <input
             value={imageUrl}
             onChange={(event) => set_ImageUrl(event.target.value)}
@@ -158,7 +179,7 @@ export default function FormEditProfile() {
           <img src={imageUrl} width={300} alt="" />
         </FormGroup>
 
-        <Button onClick={handleSubmit}>Submit changes</Button>
+        <Button onClick={handleSubmit}>SUBMIT CHANGES</Button>
       </Form>
     </div>
   );

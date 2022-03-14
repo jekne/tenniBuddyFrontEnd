@@ -1,31 +1,46 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FormEditProfile from "../../components/Forms/FormEditProfile";
 import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
-import { selectUser } from "../../store/user/selectors";
+import { selectUser, selectUsersById } from "../../store/user/selectors";
+import { useEffect } from "react";
+import { ShowPlayerByID } from "../../store/user/actions";
 
 export default function UserProfile() {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  // console.log("users ", user);
+  console.log("users ", user.id);
+  const id = user.id;
 
+  const playerById = useSelector(selectUsersById);
+  console.log("player by id", playerById);
+
+  // const details = useSelector(selectUsersById);
+  // console.log("details", details);
+
+  useEffect(() => {
+    if (playerById) {
+      dispatch(ShowPlayerByID(id));
+    }
+  }, [dispatch, id]);
   return (
-    <div>
-      <h1>USER PROFILE</h1>
+    <div className="userProfileBackGround">
+      <h1 className=""> {user.name} BUDDY PROFILE</h1>
       {!user ? (
         "Loading ... "
       ) : (
-        <div>
+        <div className="userProfile">
           <UserProfileCard
-            key={user.id}
-            email={user.email}
-            gender={user.gender ? "Man" : "Woman"}
-            imageUrl={user.imageUrl}
-            levelId={user.levelId}
-            location={user.location}
-            name={user.name}
-            telephone={user.telephone}
-            age={user.age}
+            key={playerById.id}
+            email={playerById.email}
+            gender={playerById.gender ? "Man" : "Woman"}
+            imageUrl={playerById.imageUrl}
+            levelId={playerById.level?.levelRateFixed}
+            location={playerById.location?.city}
+            name={playerById.name}
+            telephone={playerById.telephone}
+            age={playerById.age}
           />
-          <FormEditProfile />
+          <FormEditProfile className="formEditProfile" />
         </div>
       )}
     </div>

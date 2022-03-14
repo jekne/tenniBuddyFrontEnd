@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import MatchesCard from "../../components/MatchesCard/MatchesCard";
-
+import { CardGroup } from "react-bootstrap";
 import { selectUser } from "../../store/user/selectors";
 import { useSelector } from "react-redux";
 
@@ -17,6 +17,7 @@ import {
   selectPlayerThatPlayedInThatMatch,
   selectSetsPlayed,
 } from "../../store/matches/selector";
+import { Card } from "react-bootstrap";
 
 export default function MatchesPlayed() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function MatchesPlayed() {
   const id = user.id;
 
   const matchesPlayedByTheUser = useSelector(selectMatchesPlayed);
-  // console.log("matches Played By The User", matchesPlayedByTheUser);
+  console.log("matches Played By The User", matchesPlayedByTheUser);
 
   const matchesPlayed = matchesPlayedByTheUser?.matchId;
 
@@ -36,7 +37,7 @@ export default function MatchesPlayed() {
 
   const setsPlayed = useSelector(selectSetsPlayed);
   console.log("Set played", setsPlayed);
-  console.log("set played dot lenght", setsPlayed?.[1]);
+  // console.log("set played dot lenght", setsPlayed?.[1]);
 
   useEffect(() => {
     dispatch(getMatcheId());
@@ -57,11 +58,15 @@ export default function MatchesPlayed() {
             {setsPlayed?.[1].map((sets) => {
               return (
                 <div key={sets.id}>
-                  <h1> {sets.user.name}</h1>{" "}
-                  <div>
-                    {" "}
-                    <img src={sets.user.imageUrl} width="300" />
-                  </div>
+                  <CardGroup>
+                    <Card>
+                      <h1> {sets.user.name}</h1>{" "}
+                      <div>
+                        {" "}
+                        <img src={sets.user.imageUrl} width="300" />
+                      </div>
+                    </Card>
+                  </CardGroup>
                   <h3>First Set :{sets.score}</h3>
                 </div>
               );
@@ -73,6 +78,16 @@ export default function MatchesPlayed() {
                 <div key={sets.id}>
                   {" "}
                   <h3>Second Set:{sets.score}</h3>
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            {setsPlayed?.[3].map((sets) => {
+              return (
+                <div key={sets.id}>
+                  {" "}
+                  <h3>Third Set:{sets.score}</h3>
                 </div>
               );
             })}

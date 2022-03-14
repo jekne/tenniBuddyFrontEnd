@@ -51,22 +51,29 @@ const displayWinner = (data) => {
   };
 };
 
-// const displayLevelLocation = (data) => {
-//   return {
-//     type: "USER/displayLevelLocation",
-//     payload: data,
-//   };
-// };
-
 export const logOut = () => ({ type: LOG_OUT });
 
-export const signUp = (name, email, password) => {
+export const signUp = (
+  name,
+  age,
+  description,
+  email,
+  gender,
+  imageUrl,
+  telephone,
+  password
+) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${apiUrl}/auth/signup`, {
         name,
+        age,
+        description,
         email,
+        gender,
+        imageUrl,
+        telephone,
         password,
       });
 

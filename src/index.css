@@ -9,7 +9,6 @@
 .displayHomePageCard {
   display: flex;
   justify-content: center;
-
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -23,7 +22,6 @@
 .displayClubCard {
   display: flex;
   justify-content: center;
-
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -37,3 +35,58 @@
 /* .try {
   background-image: url("https://images.squarespace-cdn.com/content/v1/58fe5ade8419c2c6c8a117ed/1493239687927-PJO0ERM8531GRULQ1N8C/ball_blue_court-718x274.jpg?format=2500w");
 } */
+.levels {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.levelsAllPage {
+  display: flex;
+  justify-content: center;
+}
+.levelUtr {
+  color: coral;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.btlUtr {
+  display: flex;
+  justify-content: center;
+}
+
+.checkbox {
+  /* display: flex; */
+  justify-content: center;
+  background-color: blue;
+}
+
+.backgroundLevel {
+  justify-content: center;
+  display: flex;
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiTw36ez9h7LW71tH4vQZ4RRzpdyJHVzGsYA&usqp=CAU");
+}
+
+.userProfile {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+.formEditProfile {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.storiesPlayerDetails {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}

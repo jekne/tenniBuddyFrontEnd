@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DisplayHomePageCard from "../../components/DisplayHomePageCard/DisplayHomePageCard";
-import { fetchAllPlayers } from "../../store/user/actions";
-import { selectAllUsers } from "../../store/user/selectors";
+import { fetchAllLevels, fetchAllPlayers } from "../../store/user/actions";
+import { selectAllUsers, SelectAllLevels } from "../../store/user/selectors";
 import { FormGroup } from "react-bootstrap";
 import { Input, Label } from "reactstrap";
 import { useState } from "react";
@@ -18,18 +18,19 @@ function compareGender(Boolean_A, Boolean_B) {
 export default function HomePage() {
   const dispatch = useDispatch();
   const players = useSelector(selectAllUsers);
-  console.log("players", players);
+  const levels = useSelector(SelectAllLevels);
+  // console.log("players", players);
 
   const [sortBy, set_sort_By] = useState("level");
   const [sortedPlayers, setSortedPlayers] = useState([]);
-
   const [selectedLevel, setSelectedLevel] = useState(null);
-
-  console.log("Select level", selectedLevel);
+  const [location, set_Location] = useState(null);
+  console.log("Select locatioon", location);
 
   const changeSorting = (event) => {
     set_sort_By(event.target.value);
   };
+
   useEffect(() => {
     let playersSorted = [...players].sort(
       sortBy === "level" ? compareLevel : compareGender
@@ -39,20 +40,19 @@ export default function HomePage() {
         return player.level?.levelRateFixed.includes(selectedLevel);
       });
     }
+    if (location) {
+      playersSorted = playersSorted.filter((player) => {
+        return player.locationId === location;
+      });
+    }
     setSortedPlayers(playersSorted);
-  }, [sortBy, selectedLevel, players]);
+  }, [sortBy, selectedLevel, players, location]);
 
   useEffect(() => {
     dispatch(fetchAllPlayers());
+    dispatch(fetchAllLevels());
   }, [dispatch]);
 
-  // const sortByLevel = !selectedLevel
-  //   ? players
-  //   : players.filter((player) => {
-  //       return player.level?.levelRateFixed.includes(selectedLevel);
-  //     });
-  // console.log("what it is sort by level", sortByLevel);
-  // const sorting = sortByLevel && playersSorted;
   return (
     <div>
       <div>
@@ -65,12 +65,30 @@ export default function HomePage() {
             type="select"
             value={selectedLevel}
             onChange={(e) => {
-              setSelectedLevel(parseInt(e.target.value));
+              setSelectedLevel(parseFloat(e.target.value));
             }}
           >
-            {players.map((lev) => (
+            <option>Select level:</option>
+            {levels?.map((lev) => (
               <option key={lev.id} value={lev.level?.levelRateFixed}>
-                {lev.level?.levelRateFixed}
+                {lev.levelRateFixed}
+              </option>
+            ))}
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Input
+            id="exampleSelect"
+            name="select"
+            type="select"
+            value={location}
+            onChange={(e) => {
+              set_Location(parseInt(e.target.value));
+            }}
+          >
+            {players.map((locati) => (
+              <option key={locati.id} value={locati.locationId}>
+                {locati.location?.city}
               </option>
             ))}
           </Input>
@@ -78,13 +96,18 @@ export default function HomePage() {
         <div>
           {" "}
           <Input type="select" onChange={changeSorting} value={sortBy}>
-            <option value="level">Order by Level</option>
-            <option value="gender">Order by Gender</option>
+            <option value="level">MEN'S BUDDY</option>
+            <option value="gender">WOMEN'S BUDDY</option>
           </Input>
         </div>
       </div>
-      {!sortedPlayers
-        ? "Loading.."
+      {selectedLevel && (
+        <p>
+          Current level: <b>{selectedLevel}</b>
+        </p>
+      )}
+      {!sortedPlayers || sortedPlayers.length < 1
+        ? "No playes with selected level"
         : sortedPlayers.map((x) => {
             return (
               <DisplayHomePageCard

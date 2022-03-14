@@ -35,7 +35,6 @@ export default function UserProfileCard(props) {
             <strong>Level: </strong>
             {props.levelId}
           </Card.Text>
-          <Button variant="primary">Submit changes</Button>{" "}
         </Card.Body>
       </Card>
     </div>
