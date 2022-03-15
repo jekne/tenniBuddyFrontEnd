@@ -16,11 +16,15 @@ export default function Navigation() {
   return (
     <Navbar className="colorNavBar">
       <Navbar.Brand as={NavLink} to="/">
-        TENNIS BUDDY
+        <strong>
+          {" "}
+          <strong className="tennisBuddyLogo"> TENNIS BUDDY 🎾 </strong>
+        </strong>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav style={{ width: "100%" }} fill>
+          {" "}
           <NavbarItem path="/" linkText="🎾 Home 🎾" />
           {!token ? (
             ""

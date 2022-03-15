@@ -209,7 +209,6 @@ export function usersWillBeUpdate({
       const id = user.id;
       const token = localStorage.getItem("token");
 
-      console.log("name age dessciption", name, age, description);
       const response = await axios.put(
         `${apiUrl}/users/update/${id}`,
         {
@@ -230,6 +229,7 @@ export function usersWillBeUpdate({
       );
 
       dispatch(userToUpdate(response.data));
+      console.log("response from backend", response.data);
       window.location.reload();
     } catch (e) {}
   };

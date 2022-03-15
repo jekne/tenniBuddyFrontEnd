@@ -21,13 +21,13 @@ export default (state = initialState, action) => {
     case TOKEN_STILL_VALID:
       return { ...state, ...action.payload };
     case "USER/displayPlayers": {
-      console.log("USER/displayPlayers from the reducer", action.payload);
       return { ...state, players: [...action.payload] };
     }
     case "USER/displayLevels": {
       return { ...state, ...action.payload };
     }
     case "USERS/userToUpdate": {
+      console.log("action user", action.payload);
       return {
         ...state,
         ...action.payload,

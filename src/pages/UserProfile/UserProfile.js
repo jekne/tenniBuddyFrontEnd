@@ -21,7 +21,10 @@ export default function UserProfile() {
   }, [dispatch, id]);
   return (
     <div className="userProfileBackGround">
-      <h1 className="userProfileTitle"> {user.name} BUDDY PROFILE</h1>
+      <strong>
+        {" "}
+        <h1 className="userProfileTitle"> {user.name} BUDDY PROFILE</h1>{" "}
+      </strong>
       {!user ? (
         "Loading ... "
       ) : (
@@ -32,14 +35,15 @@ export default function UserProfile() {
             gender={playerById.gender ? "Man" : "Woman"}
             imageUrl={playerById.imageUrl}
             levelId={playerById.level?.levelRateFixed}
-            location={
-              playerById.location?.city ? null : "Amsterdam - City Center"
-            }
+            location={playerById.location?.city}
             name={playerById.name}
             telephone={playerById.telephone}
             age={playerById.age}
           />
-          <FormEditProfile className="formEditProfile" />
+          <strong>
+            {" "}
+            <FormEditProfile className="formEditProfile" />
+          </strong>
         </div>
       )}
     </div>

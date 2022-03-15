@@ -4,10 +4,13 @@ import { NavLink } from "react-router-dom";
 
 export default function NavbarItem(props) {
   return (
-    <Nav.Item>
-      <Nav.Link as={NavLink} to={props.path}>
-        {props.linkText}
-      </Nav.Link>
+    <Nav.Item className="navBarText">
+      <strong>
+        {" "}
+        <Nav.Link as={NavLink} to={props.path}>
+          {props.linkText}
+        </Nav.Link>{" "}
+      </strong>
     </Nav.Item>
   );
 }

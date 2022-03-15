@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { usersWillBeUpdate, fetchAllPlayers } from "../../store/user/actions";
 import { Form, Row, Col, FormGroup, Button } from "react-bootstrap";
 import { Input, Label } from "reactstrap";
+import { fetchAllLocations } from "../../store/locations/actions";
 import {
   selectToken,
   selectUser,
   selectAllUsers,
 } from "../../store/user/selectors";
+import { selectAlllocations } from "../../store/locations/selectors";
 
 export default function FormEditProfile() {
   const dispatch = useDispatch();
@@ -23,13 +25,15 @@ export default function FormEditProfile() {
   const [telephone, set_Telephone] = useState("");
 
   const players = useSelector(selectAllUsers);
-  console.log("PLAYERS", players);
+
   const user = useSelector(selectUser);
+
+  const locationsSelector = useSelector(selectAlllocations);
+  console.log("locations selector", locationsSelector);
 
   const token = useSelector(selectToken);
 
   const handleSubmit = () => {
-    console.log("name age description", name, age, description);
     dispatch(
       usersWillBeUpdate({
         name,
@@ -45,11 +49,11 @@ export default function FormEditProfile() {
         token,
       })
     );
-    console.log("Ive been clicked");
   };
 
   useEffect(() => {
     dispatch(fetchAllPlayers());
+    dispatch(fetchAllLocations());
   }, []);
   return (
     <div>
@@ -111,9 +115,9 @@ export default function FormEditProfile() {
               }}
             >
               <option> LOCATION</option>
-              {players.map((locati) => (
-                <option key={locati.id} value={locati.locationId}>
-                  {locati.location?.city}
+              {locationsSelector.map((locati) => (
+                <option key={locati.id} value={locati.id}>
+                  {locati.city}
                 </option>
               ))}
             </Input>
@@ -199,7 +203,13 @@ export default function FormEditProfile() {
           <img src={imageUrl} width={300} alt="" />
         </FormGroup>
 
-        <Button onClick={handleSubmit}>SUBMIT CHANGES</Button>
+        <Button
+          style={{ marginTop: 30 }}
+          onClick={handleSubmit}
+          style={{ marginBottom: 90 }}
+        >
+          SUBMIT CHANGES
+        </Button>
       </Form>
     </div>
   );

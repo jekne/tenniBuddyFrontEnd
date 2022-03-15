@@ -6,6 +6,8 @@ import { selectAllUsers, SelectAllLevels } from "../../store/user/selectors";
 import { FormGroup } from "react-bootstrap";
 import { Input, Label } from "reactstrap";
 import { useState } from "react";
+import { selectAlllocations } from "../../store/locations/selectors";
+import { fetchAllLocations } from "../../store/locations/actions";
 
 function compareLevel(Level_A, Leve_B) {
   return Leve_B.level?.levelRateFixed - Level_A.level?.levelRateFixed;
@@ -19,6 +21,7 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const players = useSelector(selectAllUsers);
   const levels = useSelector(SelectAllLevels);
+  const locationsSelector = useSelector(selectAlllocations);
 
   const [sortBy, set_sort_By] = useState("level");
   const [sortedPlayers, setSortedPlayers] = useState([]);
@@ -44,6 +47,7 @@ export default function HomePage() {
       });
     }
     setSortedPlayers(playersSorted);
+    dispatch(fetchAllLocations());
   }, [sortBy, selectedLevel, players, location]);
 
   useEffect(() => {
@@ -84,9 +88,9 @@ export default function HomePage() {
               set_Location(parseInt(e.target.value));
             }}
           >
-            {players.map((locati) => (
-              <option key={locati.id} value={locati.locationId}>
-                {locati.location?.city}
+            {locationsSelector.map((locati) => (
+              <option key={locati.id} value={locati.id}>
+                {locati.city}
               </option>
             ))}
           </Input>

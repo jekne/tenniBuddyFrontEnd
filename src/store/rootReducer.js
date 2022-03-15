@@ -5,6 +5,7 @@ import club from "./clubs/reducer";
 import matches from "./matches/reducer";
 import players from "./players/reducer";
 import stories from "./stories/reducer";
+import locations from "./locations/reducer";
 
 export default combineReducers({
   appState,
@@ -13,4 +14,5 @@ export default combineReducers({
   matches,
   players,
   stories,
+  locations,
 });
