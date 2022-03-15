@@ -18,6 +18,7 @@ import UserProfile from "./pages/UserProfile/UserProfile";
 import Levels from "./pages/Levels/Levels";
 import MatchesPlayed from "./pages/Matches/MatchesPlayed";
 import PlayerDetails from "./pages/PlayerDetails/PlayerDetails";
+import Chat from "./pages/Chats/Chats";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
         <Route path="/levels" element={<Levels />} />
         <Route path="/matches" element={<MatchesPlayed />} />
         <Route path="/details/:id" element={<PlayerDetails />} />
+        <Route path="/chats" element={<Chat />} />
       </Routes>
     </div>
   );

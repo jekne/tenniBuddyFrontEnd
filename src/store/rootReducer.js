@@ -6,6 +6,7 @@ import matches from "./matches/reducer";
 import players from "./players/reducer";
 import stories from "./stories/reducer";
 import locations from "./locations/reducer";
+import chats from "./chats/reducer";
 
 export default combineReducers({
   appState,
@@ -15,4 +16,5 @@ export default combineReducers({
   players,
   stories,
   locations,
+  chats,
 });
