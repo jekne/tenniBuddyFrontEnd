@@ -88,6 +88,7 @@ export default function HomePage() {
               set_Location(parseInt(e.target.value));
             }}
           >
+            <option> LOCATION</option>
             {locationsSelector.map((locati) => (
               <option key={locati.id} value={locati.id}>
                 {locati.city}
@@ -112,15 +113,18 @@ export default function HomePage() {
         ? "No playes with selected level"
         : sortedPlayers.map((player) => {
             return (
-              <DisplayHomePageCard
-                key={player.id}
-                name={player.name}
-                levelId={player.level?.levelRateFixed}
-                imageUrl={player.imageUrl}
-                location={player.location?.city}
-                description={player.description}
-                id={player.id}
-              />
+              <strong>
+                {" "}
+                <DisplayHomePageCard
+                  key={player.id}
+                  name={player.name}
+                  levelId={player.level?.levelRateFixed}
+                  imageUrl={player.imageUrl}
+                  location={player.location?.city}
+                  description={player.description}
+                  id={player.id}
+                />
+              </strong>
             );
           })}
     </div>

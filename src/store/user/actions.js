@@ -66,11 +66,13 @@ export const signUp = (
   email,
   gender,
   imageUrl,
+  location,
   telephone,
   password
 ) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
+    console.log("What it is my location", location);
     try {
       const response = await axios.post(`${apiUrl}/auth/signup`, {
         name,
@@ -80,6 +82,7 @@ export const signUp = (
         gender,
         imageUrl,
         telephone,
+        location,
         password,
       });
 

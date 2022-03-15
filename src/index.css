@@ -2,7 +2,10 @@
   background-color: rgb(248, 92, 35);
   color: white;
 }
-
+.NamePlayerTopPage {
+  color: white;
+  text-shadow: 2px 2px #0c0a0a;
+}
 .navBarText {
   color: white;
 }
@@ -123,7 +126,7 @@
 
 .playerDetailsBigCard {
   margin-left: 250px;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .userProfileBackGround {

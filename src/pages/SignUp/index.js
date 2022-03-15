@@ -9,6 +9,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { Col } from "react-bootstrap";
 import { Row, FormGroup } from "react-bootstrap";
 import { Input, Label } from "reactstrap";
+import { selectAlllocations } from "../../store/locations/selectors";
+import { fetchAllLocations } from "../../store/locations/actions";
 
 export default function SignUp() {
   // const [name, setName] = useState("");
@@ -26,9 +28,10 @@ export default function SignUp() {
   const [gender, set_Gender] = useState(false);
   const [imageUrl, set_ImageUrl] = useState("");
   // const [levelId, set_LevelId] = useState("");
-  // const [location, set_location] = useState("");
+  const [location, set_Location] = useState(null);
   const [telephone, set_Telephone] = useState("");
-
+  const locationsSelector = useSelector(selectAlllocations);
+  console.log("location selector", locationsSelector);
   useEffect(() => {
     if (token !== null) {
       navigate("/levels");
@@ -46,7 +49,7 @@ export default function SignUp() {
         email,
         gender,
         imageUrl,
-
+        location,
         telephone,
         password
       )
@@ -56,6 +59,9 @@ export default function SignUp() {
     // set_Password("");
     // set_Name("");
   }
+  useEffect(() => {
+    dispatch(fetchAllLocations());
+  }, []);
 
   return (
     <Container>
@@ -104,17 +110,28 @@ export default function SignUp() {
           </Row>
 
           <Row form>
-            {/* <Col md={6}>
             <FormGroup>
-              <Label>Location</Label>
+              <Label>
+                {" "}
+                <strong> Location </strong>
+              </Label>
               <Input
-                type="text"
-                placeholder={user.location}
+                id="exampleSelect"
+                name="select"
+                type="select"
                 value={location}
-                onChange={(event) => set_location(event.target.value)}
-              />
+                onChange={(e) => {
+                  set_Location(parseInt(e.target.value));
+                }}
+              >
+                <option> LOCATION</option>
+                {locationsSelector.map((locati) => (
+                  <option key={locati.id} value={locati.id}>
+                    {locati.city}
+                  </option>
+                ))}
+              </Input>
             </FormGroup>
-          </Col> */}
             <Col md={6}>
               <FormGroup>
                 <Label>
