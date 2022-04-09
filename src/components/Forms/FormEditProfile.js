@@ -4,11 +4,7 @@ import { usersWillBeUpdate, fetchAllPlayers } from "../../store/user/actions";
 import { Form, Row, Col, FormGroup, Button } from "react-bootstrap";
 import { Input, Label } from "reactstrap";
 import { fetchAllLocations } from "../../store/locations/actions";
-import {
-  selectToken,
-  selectUser,
-  selectAllUsers,
-} from "../../store/user/selectors";
+import { selectToken, selectUser } from "../../store/user/selectors";
 import { selectAlllocations } from "../../store/locations/selectors";
 
 export default function FormEditProfile() {
@@ -20,17 +16,11 @@ export default function FormEditProfile() {
   const [age, set_Age] = useState("");
   const [gender, set_Gender] = useState(false);
   const [imageUrl, set_ImageUrl] = useState("");
-  const [levelId, set_LevelId] = useState("");
   const [location, set_location] = useState(null);
   const [telephone, set_Telephone] = useState("");
 
-  const players = useSelector(selectAllUsers);
-
   const user = useSelector(selectUser);
-
   const locationsSelector = useSelector(selectAlllocations);
-  console.log("locations selector", locationsSelector);
-
   const token = useSelector(selectToken);
 
   const handleSubmit = () => {
@@ -42,7 +32,6 @@ export default function FormEditProfile() {
         email,
         gender,
         imageUrl,
-        levelId,
         location,
         telephone,
         password,
@@ -54,7 +43,8 @@ export default function FormEditProfile() {
   useEffect(() => {
     dispatch(fetchAllPlayers());
     dispatch(fetchAllLocations());
-  }, []);
+  }, [dispatch]);
+
   return (
     <div>
       <Form className="test">
@@ -98,7 +88,6 @@ export default function FormEditProfile() {
             </FormGroup>
           </Col>
         </Row>
-
         <Row form>
           <FormGroup>
             <Label>
@@ -122,7 +111,6 @@ export default function FormEditProfile() {
               ))}
             </Input>
           </FormGroup>
-
           <Col md={6}>
             <FormGroup>
               <Label>
@@ -163,7 +151,6 @@ export default function FormEditProfile() {
               <Label check>Woman</Label>
             </FormGroup>
           </Col>
-
           <FormGroup row>
             <Label sm={2}>
               {" "}
@@ -190,26 +177,19 @@ export default function FormEditProfile() {
             onChange={(event) => set_Telephone(event.target.value)}
           />
         </FormGroup>
+        <div style={{ marginTop: 10 }}>
+          <strong>PICTURE PROFILE:</strong>
+        </div>
         <FormGroup>
-          <label>
-            {" "}
-            <strong>PICTURE PROFILE:</strong>
-          </label>
           <input
             value={imageUrl}
             onChange={(event) => set_ImageUrl(event.target.value)}
           />
-
           <img src={imageUrl} width={300} alt="" />
+          <Button style={{ marginLeft: 150 }} onClick={handleSubmit}>
+            SUBMIT CHANGES
+          </Button>
         </FormGroup>
-
-        <Button
-          style={{ marginTop: 30 }}
-          onClick={handleSubmit}
-          style={{ marginBottom: 90 }}
-        >
-          SUBMIT CHANGES
-        </Button>
       </Form>
     </div>
   );

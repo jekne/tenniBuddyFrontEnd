@@ -18,11 +18,6 @@ export default function ClubCards(props) {
             </Card.Text>
             <Card.Text>
               {" "}
-              <strong>STARS: </strong>
-              {props.rateClub}
-            </Card.Text>
-            <Card.Text>
-              {" "}
               <strong>Telephone Number: </strong>
               {props.telephone}
             </Card.Text>

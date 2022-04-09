@@ -7,20 +7,18 @@ import { ShowPlayerByID } from "../../store/user/actions";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  console.log("users ", user.id);
-  const id = user.id;
-
   const playerById = useSelector(selectUsersById);
-  console.log("player by id", playerById);
+  const user = useSelector(selectUser);
+  const id = user.id;
 
   useEffect(() => {
     if (playerById) {
       dispatch(ShowPlayerByID(id));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, playerById]);
+
   return (
-    <div className="userProfileBackGround">
+    <div className="userProfileBackGround" style={{ height: 900 }}>
       <strong>
         {" "}
         <h1 className="userProfileTitle"> {user.name} BUDDY PROFILE</h1>{" "}

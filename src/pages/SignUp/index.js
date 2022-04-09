@@ -13,11 +13,7 @@ import { selectAlllocations } from "../../store/locations/selectors";
 import { fetchAllLocations } from "../../store/locations/actions";
 
 export default function SignUp() {
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const token = useSelector(selectToken);
   const navigate = useNavigate();
 
   const [name, set_Name] = useState("");
@@ -27,11 +23,12 @@ export default function SignUp() {
   const [age, set_Age] = useState("");
   const [gender, set_Gender] = useState(false);
   const [imageUrl, set_ImageUrl] = useState("");
-  // const [levelId, set_LevelId] = useState("");
   const [location, set_Location] = useState(null);
   const [telephone, set_Telephone] = useState("");
+
+  const token = useSelector(selectToken);
   const locationsSelector = useSelector(selectAlllocations);
-  console.log("location selector", locationsSelector);
+
   useEffect(() => {
     if (token !== null) {
       navigate("/levels");
@@ -54,14 +51,10 @@ export default function SignUp() {
         password
       )
     );
-
-    // set_Email("");
-    // set_Password("");
-    // set_Name("");
   }
   useEffect(() => {
     dispatch(fetchAllLocations());
-  }, []);
+  }, [dispatch]);
 
   return (
     <Container>
@@ -74,7 +67,6 @@ export default function SignUp() {
                 <strong>Name</strong>
               </Label>
               <Input
-                // placeholder={name}
                 value={name}
                 onChange={(event) => set_Name(event.target.value)}
               />
@@ -211,44 +203,8 @@ export default function SignUp() {
 
             <img src={imageUrl} width={300} alt="" />
           </FormGroup>
-
-          {/* <Button onClick={handleSubmit}>SUBMIT CHANGES</Button> */}
         </Form>
 
-        {/* <Form.Group controlId="formBasicName">
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            type="text"
-            placeholder="Enter name"
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            type="email"
-            placeholder="Enter email"
-            required
-          />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
-        </Form.Group>
-
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            type="password"
-            placeholder="Password"
-            required
-          /> */}
-        {/* </Form.Group> */}
         <Form.Group className="mt-5">
           <Button variant="primary" type="submit" onClick={submitForm}>
             Sign up

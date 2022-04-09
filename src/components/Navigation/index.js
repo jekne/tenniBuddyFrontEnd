@@ -32,8 +32,6 @@ export default function Navigation() {
             <>
               <NavbarItem path="/clubs" linkText="🎾 Clubs 🎾" />
               <NavbarItem path="/levels" linkText="🎾 Levels 🎾" />
-              <NavbarItem path="/chats" linkText="🎾 Chat 🎾" />
-              {/* <NavbarItem path="/matches" linkText="🎾 Matches 🎾" /> */}
               <NavbarItem path="/uprofile" linkText="🎾 Your Profile 🎾" />
             </>
           )}

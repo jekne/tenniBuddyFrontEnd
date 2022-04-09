@@ -27,7 +27,6 @@ export default (state = initialState, action) => {
       return { ...state, ...action.payload };
     }
     case "USERS/userToUpdate": {
-      console.log("action user", action.payload);
       return {
         ...state,
         ...action.payload,

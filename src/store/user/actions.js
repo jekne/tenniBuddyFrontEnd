@@ -57,6 +57,12 @@ export function playerById(id) {
     payload: id,
   };
 }
+export function userToUpdate(data) {
+  return {
+    type: "USERS/userToUpdate",
+    payload: data,
+  };
+}
 export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (
@@ -72,7 +78,7 @@ export const signUp = (
 ) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
-    console.log("What it is my location", location);
+
     try {
       const response = await axios.post(`${apiUrl}/auth/signup`, {
         name,
@@ -91,10 +97,8 @@ export const signUp = (
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
         dispatch(setMessage("danger", true, error.response.data.message));
       } else {
-        console.log(error.message);
         dispatch(setMessage("danger", true, error.message));
       }
       dispatch(appDoneLoading());
@@ -116,10 +120,8 @@ export const login = (email, password) => {
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
-        console.log(error.response.data.message);
         dispatch(setMessage("danger", true, error.response.data.message));
       } else {
-        console.log(error.message);
         dispatch(setMessage("danger", true, error.message));
       }
       dispatch(appDoneLoading());
@@ -129,38 +131,29 @@ export const login = (email, password) => {
 
 export const getUserWithStoredToken = () => {
   return async (dispatch, getState) => {
-    // get token from the state
     const token = selectToken(getState());
 
-    // if we have no token, stop
     if (token === null) return;
 
     dispatch(appLoading());
     try {
-      // if we do have a token,
-      // check wether it is still valid or if it is expired
       const response = await axios.get(`${apiUrl}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // token is still valid
       dispatch(tokenStillValid(response.data));
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {
-        console.log(error.response.message);
       } else {
-        console.log(error);
       }
-      // if we get a 4xx or 5xx response,
-      // get rid of the token by logging out
+
       dispatch(logOut());
       dispatch(appDoneLoading());
     }
   };
 };
 
-//FETCH ALL THE PLAYERS
 export function fetchAllPlayers() {
   return async function thunk(dispatch, getState) {
     try {
@@ -173,7 +166,6 @@ export function fetchAllPlayers() {
   };
 }
 
-//FETCH ALL LEVELS
 export function fetchAllLevels() {
   return async function thunk(dispatch, getState) {
     try {
@@ -183,14 +175,6 @@ export function fetchAllLevels() {
 
       dispatch(displayLevels(levels));
     } catch (e) {}
-  };
-}
-
-//UPDATE THE USERS
-export function userToUpdate(data) {
-  return {
-    type: "USERS/userToUpdate",
-    payload: data,
   };
 }
 
@@ -232,7 +216,6 @@ export function usersWillBeUpdate({
       );
 
       dispatch(userToUpdate(response.data));
-      console.log("response from backend", response.data);
       window.location.reload();
     } catch (e) {}
   };

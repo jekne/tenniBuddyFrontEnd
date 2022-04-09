@@ -48,7 +48,7 @@ export default function HomePage() {
     }
     setSortedPlayers(playersSorted);
     dispatch(fetchAllLocations());
-  }, [sortBy, selectedLevel, players, location]);
+  }, [dispatch, sortBy, selectedLevel, players, location]);
 
   useEffect(() => {
     dispatch(fetchAllPlayers());

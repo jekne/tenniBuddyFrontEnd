@@ -9,6 +9,13 @@ export function newStory(content) {
   };
 }
 
+export function showStories(data) {
+  return {
+    type: "STORIES/showStories",
+    payload: data,
+  };
+}
+
 export function createNewStory({ content, token, id }) {
   return async function thunk(dispatch, getState) {
     try {
@@ -21,8 +28,6 @@ export function createNewStory({ content, token, id }) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("My token", token);
-      console.log("response from thunk", response);
 
       dispatch(newStory(response.data));
       dispatch(fetchStories(id, token));
@@ -30,13 +35,6 @@ export function createNewStory({ content, token, id }) {
         showMessageWithTimeout("success", false, "Message sent to the BUDDY!")
       );
     } catch (e) {}
-  };
-}
-
-export function showStories(data) {
-  return {
-    type: "STORIES/showStories",
-    payload: data,
   };
 }
 

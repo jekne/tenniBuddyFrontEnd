@@ -8,7 +8,6 @@ export default function Clubs() {
   const dispatch = useDispatch();
 
   const clubs = useSelector(selectClubs);
-  console.log("All the clubs", clubs);
 
   useEffect(() => {
     dispatch(fetchClubs());

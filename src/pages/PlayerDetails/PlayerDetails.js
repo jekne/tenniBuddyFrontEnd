@@ -20,12 +20,8 @@ export default function PlayerDetails() {
   const [formHidden, set_FormHidden] = useState(true);
 
   const token = useSelector(selectToken);
-
   const details = useSelector(selectUsersById);
-  // console.log("details", details);
-
   const stories = useSelector(selectStoriesByPlayer);
-  // console.log("stories", stories);
 
   const handleSubmmit = (event) => {
     event.preventDefault();
@@ -39,7 +35,7 @@ export default function PlayerDetails() {
       dispatch(ShowPlayerByID(id));
       dispatch(fetchStories(id));
     }
-  }, [id]);
+  }, [dispatch, id]);
 
   return (
     <div className="playerDetails">
@@ -60,7 +56,7 @@ export default function PlayerDetails() {
                 Description: {details.level?.description}
               </CardSubtitle>
             </CardBody>
-            <img alt="Card image cap" src={details.imageUrl} width="50%" />
+            <img src={details.imageUrl} width="50%" alt="" />
             <CardBody>
               <CardText>
                 <strong>Favorite Location: {details.location?.city} </strong>
@@ -154,4 +150,3 @@ export default function PlayerDetails() {
     </div>
   );
 }
-// location={matches.location?.city}

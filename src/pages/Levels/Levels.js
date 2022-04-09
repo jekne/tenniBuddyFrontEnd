@@ -9,15 +9,15 @@ import { Link } from "react-router-dom";
 
 export default function Levels() {
   const dispatch = useDispatch();
+  const [check, set_Check] = useState("");
+
   const userLogged = useSelector(selectUser);
   const levels = useSelector(SelectAllLevels);
 
-  const [check, set_Check] = useState("");
   const id = userLogged?.id;
 
   const handleSubmit = () => {
     dispatch(levelPlayerByID(id, check));
-    console.log("id check", id, check);
   };
 
   useEffect(() => {
