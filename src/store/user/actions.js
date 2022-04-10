@@ -37,20 +37,6 @@ const displayLevels = (data) => {
   };
 };
 
-const displayMatches = (data) => {
-  return {
-    type: "USER/displayMatches",
-    payload: data,
-  };
-};
-
-const displayWinner = (data) => {
-  return {
-    type: "USER/displayWinner",
-    payload: data,
-  };
-};
-
 export function playerById(id) {
   return {
     type: "USER/playerById",
@@ -185,7 +171,6 @@ export function usersWillBeUpdate({
   email,
   gender,
   imageUrl,
-  levelId,
   location,
   telephone,
   password,
@@ -205,7 +190,6 @@ export function usersWillBeUpdate({
           email,
           gender,
           imageUrl,
-          levelId,
           location,
           telephone,
           password,
@@ -217,39 +201,6 @@ export function usersWillBeUpdate({
 
       dispatch(userToUpdate(response.data));
       window.location.reload();
-    } catch (e) {}
-  };
-}
-
-//FETCH THE MATCHE BY ID
-export function fetchMatchById() {
-  return async function thunk(dispatch, getState) {
-    try {
-      const { user } = getState();
-
-      const userId = user.id;
-
-      const response = await axios.get(`${apiUrl}/users/${userId}`);
-
-      const matches = response.data;
-
-      dispatch(displayMatches(matches));
-    } catch (e) {}
-  };
-}
-
-//FETCH THE WINNER BY ID
-export function fetchWinner() {
-  return async function thunk(dispatch, getState) {
-    try {
-      const { user } = getState();
-      const userId = user.id;
-
-      const response = await axios.get(`${apiUrl}/matches/${userId}`);
-
-      const winner = response.data;
-
-      dispatch(displayWinner(winner));
     } catch (e) {}
   };
 }

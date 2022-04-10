@@ -15,7 +15,7 @@ export default function UserProfile() {
     if (playerById) {
       dispatch(ShowPlayerByID(id));
     }
-  }, [dispatch, id, playerById]);
+  }, [id]);
 
   return (
     <div className="userProfileBackGround" style={{ height: 900 }}>

@@ -32,12 +32,6 @@ export default (state = initialState, action) => {
         ...action.payload,
       };
     }
-    case "USER/displayMatches": {
-      return {
-        ...state,
-        match: action.payload.userById,
-      };
-    }
     case "USER/displayLevelLocation": {
       return {
         ...state,
@@ -48,12 +42,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         playerById: { ...action.payload },
-      };
-    }
-    case "USER/displayWinner": {
-      return {
-        ...state,
-        ...action.payload,
       };
     }
 

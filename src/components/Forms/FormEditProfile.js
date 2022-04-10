@@ -43,7 +43,7 @@ export default function FormEditProfile() {
   useEffect(() => {
     dispatch(fetchAllPlayers());
     dispatch(fetchAllLocations());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div>
