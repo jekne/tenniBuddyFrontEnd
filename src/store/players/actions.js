@@ -14,7 +14,7 @@ export function levelPlayerByID(id, levelId) {
     try {
       const { user } = getState();
       const id = user.id;
-      console.log("What is this id", id);
+
       const token = localStorage.getItem("token");
 
       const response = await axios.put(
@@ -24,7 +24,6 @@ export function levelPlayerByID(id, levelId) {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      console.log("response from thunk", response.data);
 
       const levelUpdate = response.data;
 
