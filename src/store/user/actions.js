@@ -64,6 +64,7 @@ export const signUp = (
 ) => {
   return async (dispatch, getState) => {
     dispatch(appLoading());
+    console.log(name, email, password);
 
     try {
       const response = await axios.post(`${apiUrl}/auth/signup`, {
@@ -77,7 +78,6 @@ export const signUp = (
         location,
         password,
       });
-
       dispatch(loginSuccess(response.data));
       dispatch(showMessageWithTimeout("success", true, "account created"));
       dispatch(appDoneLoading());

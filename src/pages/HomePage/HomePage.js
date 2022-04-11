@@ -110,7 +110,7 @@ export default function HomePage() {
         </p>
       )}
       {!sortedPlayers || sortedPlayers.length < 1
-        ? "No playes with selected level"
+        ? "No playes with this selectors found"
         : sortedPlayers.map((player) => {
             return (
               <strong>
